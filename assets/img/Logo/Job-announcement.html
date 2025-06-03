@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook/Meta Advertising Campaign Report - A4</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .campaign-overview {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 30px;
+    align-items: center;
+}
+.campaign-overview > div:first-child img {
+    max-width: 160px;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    object-fit: contain;
+    background: #f8fafc;
+}
+@media screen and (max-width: 768px) {
+    .campaign-overview {
+        grid-template-columns: 1fr;
+    }
+    .campaign-overview > div:first-child {
+        margin-bottom: 16px;
+    }
+}
+        body {
+            font-family: 'Inter', sans-serif;
+            background: white;
+            line-height: 1.5;
+            font-size: 16px; /* Increased from 12px */
+            color: #1e293b;
+        }
+        /* A4 Print Styles */
+        @page {
+            size: A4;
+            margin: 20mm; /* Increased margin */
+        }
+        .container {
+            max-width: 100%;
+            min-height: 100vh;
+            margin: 0 auto;
+            background: white;
+            padding: 20px; /* Added padding */
+        }
+        /* Header */
+        .report-header {
+            text-align: center;
+            padding: 25px 0; /* Increased padding */
+            border-bottom: 4px solid #1877f2; /* Thicker border */
+            margin-bottom: 25px; /* Increased margin */
+        }
+        .report-title {
+            color: #1877f2;
+            font-size: 32px; /* Increased from 20px */
+            font-weight: 700;
+            margin-bottom: 10px; /* Increased margin */
+        }
+        .report-subtitle {
+            color: #64748b;
+            font-size: 20px; /* Increased from 14px */
+            font-weight: 400;
+        }
+        .campaign-status {
+            background: #10b981;
+            color: white;
+            padding: 8px 18px; /* Increased padding */
+            border-radius: 20px; /* Increased border radius */
+            font-size: 16px; /* Increased from 11px */
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 15px; /* Increased margin */
+        }
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 20px; /* Increased gap */
+            margin-bottom: 25px; /* Increased margin */
+        }
+        .grid-2 {
+            grid-template-columns: 1fr 1fr;
+        }
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        /* Cards */
+        .card {
+            background: white;
+            border: 2px solid #e2e8f0; /* Thicker border */
+            border-radius: 12px; /* Increased border radius */
+            padding: 20px; /* Increased padding */
+            margin-bottom: 20px; /* Increased margin */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Enhanced shadow */
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px; /* Increased margin */
+        }
+        .card-icon {
+            width: 36px; /* Increased from 24px */
+            height: 36px; /* Increased from 24px */
+            border-radius: 8px; /* Increased border radius */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px; /* Increased margin */
+            font-size: 18px; /* Increased from 12px */
+        }
+        .icon-primary {
+            background: #1877f2;
+            color: white;
+        }
+        .icon-success {
+            background: #10b981;
+            color: white;
+        }
+        .icon-warning {
+            background: #f59e0b;
+            color: white;
+        }
+        .icon-info {
+            background: #3b82f6;
+            color: white;
+        }
+        .card-title {
+            font-size: 20px; /* Increased from 14px */
+            font-weight: 600;
+            color: #1e293b;
+        }
+        /* Metrics */
+        .metric-card {
+            text-align: center;
+            border-top: 4px solid #1877f2; /* Thicker border */
+        }
+        .metric-value {
+            font-size: 28px; /* Increased from 18px */
+            font-weight: 700;
+            color: #1877f2;
+            margin-bottom: 8px; /* Increased margin */
+        }
+        .metric-label {
+            color: #64748b;
+            font-size: 14px; /* Increased from 10px */
+            font-weight: 500;
+            line-height: 1.3;
+        }
+        .metric-change {
+            margin-top: 8px; /* Increased margin */
+            font-size: 12px; /* Increased from 9px */
+            color: #10b981;
+            font-weight: 500;
+        }
+        /* Overview */
+        .campaign-overview {
+            background: #f8fafc;
+            border-radius: 10px; /* Increased border radius */
+            padding: 20px; /* Increased padding */
+            border-left: 6px solid #1877f2; /* Thicker border */
+        }
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px; /* Increased gap */
+            margin-top: 15px; /* Increased margin */
+        }
+        .overview-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .overview-label {
+            color: #64748b;
+            font-size: 14px; /* Increased from 10px */
+            font-weight: 500;
+            margin-bottom: 5px; /* Increased margin */
+        }
+        .overview-value {
+            color: #1e293b;
+            font-weight: 600;
+            font-size: 16px; /* Increased from 11px */
+        }
+        /* Demographics */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px; /* Increased gap */
+            margin-top: 15px; /* Increased margin */
+        }
+        .demo-card {
+            background: #f8fafc;
+            border-radius: 10px; /* Increased border radius */
+            padding: 15px; /* Increased padding */
+        }
+        .demo-card h4 {
+            font-size: 16px; /* Increased from 12px */
+            margin-bottom: 12px; /* Increased margin */
+            color: #1e293b;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px; /* Increased from 4px */
+            background: #e2e8f0;
+            border-radius: 4px; /* Increased border radius */
+            margin: 8px 0 12px 0; /* Increased margins */
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #1877f2;
+            border-radius: 4px; /* Increased border radius */
+        }
+        .gender-item, .age-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px; /* Increased from 10px */
+            margin-bottom: 8px; /* Increased margin */
+        }
+        /* Assessment Cards */
+        .assessment-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px; /* Increased gap */
+            margin: 20px 0; /* Increased margin */
+        }
+        .strengths-card, .improvements-card {
+            border-radius: 12px; /* Increased border radius */
+            padding: 20px; /* Increased padding */
+            color: white;
+            font-size: 14px; /* Increased from 10px */
+        }
+        .strengths-card {
+            background: #10b981;
+        }
+        .improvements-card {
+            background: #ef4444;
+        }
+        .recommendations-card {
+            background: #f59e0b;
+            color: white;
+            border-radius: 12px; /* Increased border radius */
+            padding: 20px; /* Increased padding */
+            margin: 20px 0; /* Increased margin */
+            font-size: 14px; /* Increased from 10px */
+        }
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 12px 0; /* Increased margin */
+            gap: 10px; /* Increased gap */
+        }
+        .list-icon {
+            margin-top: 2px; /* Increased margin */
+            flex-shrink: 0;
+            font-size: 12px; /* Increased from 8px */
+        }
+        .conclusion-card {
+            background: #8b5cf6;
+            color: white;
+            border-radius: 12px; /* Increased border radius */
+            padding: 25px; /* Increased padding */
+            text-align: center;
+            font-size: 18px; /* Increased from 12px */
+            font-weight: 600;
+            margin-top: 20px; /* Increased margin */
+        }
+        /* Tables for better data presentation */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0; /* Increased margin */
+            font-size: 14px; /* Increased from 10px */
+        }
+        .data-table th,
+        .data-table td {
+            text-align: left;
+            padding: 10px 12px; /* Increased padding */
+            border-bottom: 2px solid #e2e8f0; /* Thicker border */
+        }
+        .data-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 15px; /* Slightly larger for headers */
+        }
+        /* Print Optimizations */
+        @media print {
+            body {
+                background: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                font-size: 14px; /* Slightly smaller for print */
+            }
+            .card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .assessment-section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .grid {
+                break-inside: avoid;
+            }
+        }
+        /* Compact spacing for A4 */
+        h2 {
+            font-size: 20px; /* Increased from 14px */
+            margin: 15px 0 10px 0; /* Increased margins */
+        }
+        h3 {
+            font-size: 18px; /* Increased from 12px */
+            margin: 12px 0 8px 0; /* Increased margins */
+        }
+        h4 {
+            font-size: 16px; /* Increased from 11px */
+            margin: 10px 0 6px 0; /* Increased margins */
+        }
+        /* Responsive adjustments */
+        @media screen and (max-width: 1024px) {
+            .container {
+                padding: 15px;
+            }
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media screen and (max-width: 768px) {
+            .grid-4, .grid-3, .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .assessment-section {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .overview-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="report-header">
+            <h1 class="report-title">Facebook/Meta Campaign Report</h1>
+            <p class="report-subtitle">Comprehensive Performance Analysis & Insights</p>
+            <span class="campaign-status">
+                <i class="fas fa-check-circle"></i> Campaign Completed
+            </span>
+        </div>
+
+        <!-- Campaign Overview -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon icon-primary">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h2 class="card-title">Campaign Overview</h2>
+            </div>
+            <div class="campaign-overview">
+                <div>
+                    <img src="https://scontent.fpnh11-1.fna.fbcdn.net/v/t39.30808-6/491892118_980846314260958_2595165976974529886_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGRIkp3rWj3jopHPdMPKVSOCchDcPbRqNIJyENw9tGo0uVsaHggCXvTQpAWNtQwTksEWwVAmuSM_FCcy0RRDSpP&_nc_ohc=vrMeCxvAMw0Q7kNvwEk4Zly&_nc_oc=AdmgebNAx8pf99XkfboqHnB03ODn1_FK2jWozcygHL9WDWWECRqWHTZ65JRMXaAHfb8&_nc_zt=23&_nc_ht=scontent.fpnh11-1.fna&_nc_gid=Cpg0F21RDSj2jtZHQr5Bww&oh=00_AfKy6VuGeecsj3KDde4VJpXtK1Fel23qNxnYGo8Rl3iPQQ&oe=683CB435" alt="">
+                </div>
+                <div class="overview-grid">
+                    <div class="overview-item">
+                        <span class="overview-label">Objective</span>
+                        <span class="overview-value">Get more engagement</span>
+                    </div>
+                    <div class="overview-item">
+                        <span class="overview-label">Duration</span>
+                        <span class="overview-value">3 days (May 9-12, 2025)</span>
+                    </div>
+                    <div class="overview-item">
+                        <span class="overview-label">Total Budget</span>
+                        <span class="overview-value">$20.00</span>
+                    </div>
+                    <div class="overview-item">
+                        <span class="overview-label">Campaign Status</span>
+                        <span class="overview-value">Completed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Performance Metrics -->
+        <div class="grid grid-4">
+            <div class="card metric-card">
+                <div class="metric-value">1,903</div>
+                <div class="metric-label">Post Engagements</div>
+                <div class="metric-change">
+                    <i class="fas fa-arrow-up"></i> Excellent Reach
+                </div>
+            </div>
+            <div class="card metric-card">
+                <div class="metric-value">$0.01</div>
+                <div class="metric-label">Cost per Engagement</div>
+                <div class="metric-change">
+                    <i class="fas fa-dollar-sign"></i> Exceptional Value
+                </div>
+            </div>
+            <div class="card metric-card">
+                <div class="metric-value">52,482</div>
+                <div class="metric-label">Total Views</div>
+                <div class="metric-change">
+                    <i class="fas fa-eye"></i> Outstanding Reach
+                </div>
+            </div>
+            <div class="card metric-card">
+                <div class="metric-value">28,526</div>
+                <div class="metric-label">Total Reach</div>
+                <div class="metric-change">
+                    <i class="fas fa-users"></i> Broad Audience
+                </div>
+            </div>
+        </div>
+
+        <!-- Engagement Performance -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon icon-success">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h2 class="card-title">Engagement Performance</h2>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Engagement Type</th>
+                        <th>Count</th>
+                        <th>Performance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><i class="fas fa-comments"></i> Post Engagements</td>
+                        <td><strong>1,903</strong></td>
+                        <td style="color: #10b981;">Excellent</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-thumbs-up"></i> Post Reactions</td>
+                        <td><strong>992</strong></td>
+                        <td style="color: #10b981;">High</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-link"></i> Link Clicks</td>
+                        <td><strong>431</strong></td>
+                        <td style="color: #3b82f6;">Good</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fab fa-facebook"></i> Facebook Likes</td>
+                        <td><strong>121</strong></td>
+                        <td style="color: #3b82f6;">Good</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-share"></i> Post Shares</td>
+                        <td><strong>82</strong></td>
+                        <td style="color: #3b82f6;">Good</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-comment"></i> Post Comments</td>
+                        <td><strong>25</strong></td>
+                        <td style="color: #f59e0b;">Average</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-bookmark"></i> Post Saves</td>
+                        <td><strong>17</strong></td>
+                        <td style="color: #f59e0b;">Average</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Demographics & Geography -->
+        <div class="grid grid-2">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-info">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h2 class="card-title">Demographics</h2>
+                </div>
+                <div class="demo-card">
+                    <h4>Gender Distribution</h4>
+                    <div class="gender-item">
+                        <span>Women</span>
+                        <span style="font-weight: 600;">62.9%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 62.9%;"></div>
+                    </div>
+                    <div class="gender-item">
+                        <span>Men</span>
+                        <span style="font-weight: 600;">37.1%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 37.1%;"></div>
+                    </div>
+                </div>
+                <div class="demo-card" style="margin-top: 15px;">
+                    <h4>Top Age Groups</h4>
+                    <div class="age-item">
+                        <span>18-24 years</span>
+                        <span style="font-weight: 600; color: #1877f2;">~40%</span>
+                    </div>
+                    <div class="age-item">
+                        <span>25-34 years</span>
+                        <span style="font-weight: 600; color: #1877f2;">~20%</span>
+                    </div>
+                    <div class="age-item">
+                        <span>35-44 years</span>
+                        <span style="font-weight: 600; color: #1877f2;">~8%</span>
+                    </div>
+                    <div class="age-item">
+                        <span>45-54 years</span>
+                        <span style="font-weight: 600; color: #1877f2;">~5%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-warning">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h2 class="card-title">Geographic Distribution</h2>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Location</th>
+                            <th>Reach</th>
+                            <th>%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Phnom Penh</strong></td>
+                            <td style="color: #1877f2; font-weight: 600;">23,520</td>
+                            <td style="color: #10b981; font-weight: 600;">82.4%</td>
+                        </tr>
+                        <tr>
+                            <td>Siem Reap Province</td>
+                            <td style="color: #1877f2; font-weight: 600;">1,040</td>
+                            <td>3.6%</td>
+                        </tr>
+                        <tr>
+                            <td>Battambang Province</td>
+                            <td style="color: #1877f2; font-weight: 600;">792</td>
+                            <td>2.8%</td>
+                        </tr>
+                        <tr>
+                            <td>Banteay Meanchey</td>
+                            <td style="color: #1877f2; font-weight: 600;">384</td>
+                            <td>1.3%</td>
+                        </tr>
+                        <tr>
+                            <td>Sihanoukville Province</td>
+                            <td style="color: #1877f2; font-weight: 600;">300</td>
+                            <td>1.1%</td>
+                        </tr>
+                        <tr>
+                            <td>Other Provinces</td>
+                            <td style="color: #1877f2; font-weight: 600;">1,590</td>
+                            <td>5.6%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Ad Placements -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon icon-primary">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h2 class="card-title">Ad Placements Performance</h2>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Placement</th>
+                        <th>Reach</th>
+                        <th>Share</th>
+                        <th>Performance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mobile App Feed</strong></td>
+                        <td style="color: #1877f2; font-weight: 600;">24,456</td>
+                        <td style="color: #10b981; font-weight: 600;">85.7%</td>
+                        <td style="color: #10b981;">Top Performer</td>
+                    </tr>
+                    <tr>
+                        <td>Facebook Reels</td>
+                        <td style="color: #1877f2; font-weight: 600;">6,200</td>
+                        <td>21.7%</td>
+                        <td style="color: #3b82f6;">Good</td>
+                    </tr>
+                    <tr>
+                        <td>Mobile Suggested Videos</td>
+                        <td style="color: #1877f2; font-weight: 600;">118</td>
+                        <td>0.4%</td>
+                        <td style="color: #f59e0b;">Average</td>
+                    </tr>
+                    <tr>
+                        <td>Marketplace Mobile</td>
+                        <td style="color: #1877f2; font-weight: 600;">78</td>
+                        <td>0.3%</td>
+                        <td style="color: #f59e0b;">Average</td>
+                    </tr>
+                    <tr>
+                        <td>Desktop Feed</td>
+                        <td style="color: #1877f2; font-weight: 600;">40</td>
+                        <td>0.1%</td>
+                        <td style="color: #ef4444;">Low</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Campaign Assessment -->
+        <div class="assessment-section">
+            <div class="strengths-card">
+                <div class="card-header" style="color: white; margin-bottom: 12px;">
+                    <div class="card-icon" style="background: rgba(255,255,255,0.2);">
+                        <i class="fas fa-thumbs-up"></i>
+                    </div>
+                    <h2 class="card-title" style="color: white;">Campaign Strengths</h2>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-check-circle list-icon"></i>
+                    <div><strong>Exceptional Cost Efficiency:</strong> $0.01 per engagement is outstanding</div>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-check-circle list-icon"></i>
+                    <div><strong>High Engagement:</strong> 1,903 engagements show strong audience interest</div>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-check-circle list-icon"></i>
+                    <div><strong>Massive Views:</strong> 52,482 views with small budget shows viral potential</div>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-check-circle list-icon"></i>
+                    <div><strong>Mobile Dominance:</strong> 85.7% mobile app feed performance</div>
+                </div>
+            </div>
+
+            <div class="improvements-card">
+                <div class="card-header" style="color: white; margin-bottom: 12px;">
+                    <div class="card-icon" style="background: rgba(255,255,255,0.2);">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h2 class="card-title" style="color: white;">Areas for Improvement</h2>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-times-circle list-icon"></i>
+                    <div><strong>Geographic Concentration:</strong> 82% in Phnom Penh limits rural expansion</div>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-times-circle list-icon"></i>
+                    <div><strong>Limited Comments:</strong> Only 25 comments suggest need for discussion-worthy content</div>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-times-circle list-icon"></i>
+                    <div><strong>Desktop Underperformance:</strong> Very low desktop reach (0.1%)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strategic Recommendations -->
+        <div class="recommendations-card">
+            <div class="card-header" style="color: white; margin-bottom: 12px;">
+                <div class="card-icon" style="background: rgba(255,255,255,0.2);">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h2 class="card-title" style="color: white;">Strategic Recommendations</h2>
+            </div>
+            <div style="column-count: 2; column-gap: 20px;">
+                <div class="list-item">
+                    <i class="fas fa-arrow-up list-icon"></i>
+                    <div><strong>Scale Budget:</strong> Increase budget given exceptional $0.01 cost per engagement</div>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-mobile list-icon"></i>
+                    <div><strong>Mobile Focus:</strong> Continue prioritizing mobile placements (85.7% success rate)</div>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-video list-icon"></i>
+                    <div><strong>Expand Reels:</strong> Increase Facebook Reels content (21.7% reach)</div>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-map-marked-alt list-icon"></i>
+                    <div><strong>Rural Targeting:</strong> Create specific campaigns for provincial audiences</div>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-users list-icon"></i>
+                    <div><strong>Female-Focused:</strong> Develop content for 62.9% female audience</div>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-calendar list-icon"></i>
+                    <div><strong>Youth Targeting:</strong> Focus budget on 18-24 age group (40% of audience)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROI Conclusion -->
+        <div class="conclusion-card">
+            <i class="fas fa-chart-line" style="font-size: 24px; margin-bottom: 12px;"></i>
+            <div style="font-size: 22px; margin-bottom: 12px; font-weight: 700;">Outstanding ROI Achievement</div>
+            <div style="font-size: 16px;">
+                This campaign delivered exceptional results with 1,903 engagements at only $0.01 each, 
+                achieving massive reach of 52,482 views from a modest $20 budget, demonstrating high audience resonance and viral potential.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Print-friendly interactions
+        window.addEventListener('load', function() {
+            // Auto-populate progress bars for print
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                if (width) {
+                    bar.style.transition = 'none';
+                }
+            });
+        });
+
+        // Print function
+        function printReport() {
+            window.print();
+        }
+
+        // Add print button if needed
+        if (window.location.search.includes('print=true')) {
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(() => {
+                    window.print();
+                }, 1000);
+            });
+        }
+    </script>
+</body>
+</html>
