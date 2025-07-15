@@ -60,6 +60,13 @@ Table of contents
 /*
 ** General Styles for HTML tags
 */
+.team-photo {
+    width: 100%;
+    aspect-ratio: 3/ 3;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
 
 * {
   padding: 0;
@@ -2480,7 +2487,9 @@ body,
 /* ============================================================== 
      # Features
 =================================================================== */
-
+/* .features-area{
+  height: fit-content;
+} */
 .features-area .shape {
   opacity: 0.03;
 }
@@ -2493,6 +2502,7 @@ body,
   box-shadow: 0 5px 30px 0 rgba(214, 215, 216, 0.57);
   padding: 60px 37px;
   background: #ffffff;
+  height: 100%;
 }
 
 .features-area .about-info {
